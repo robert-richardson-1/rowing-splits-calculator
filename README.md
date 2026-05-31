@@ -43,7 +43,7 @@ Two sessions (each with an upstream and downstream split at a known flow) give f
 
 The app uses [Supabase](https://supabase.com) as a shared backend so all coaches read from and write to the same data.
 
-```
+---
 
 ### 2. Hosting (GitHub Pages)
 
