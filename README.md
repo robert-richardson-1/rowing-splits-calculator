@@ -43,44 +43,11 @@ Two sessions (each with an upstream and downstream split at a known flow) give f
 
 The app uses [Supabase](https://supabase.com) as a shared backend so all coaches read from and write to the same data.
 
-Create a free project, then run the following in the SQL Editor:
-
-```sql
-create table history (
-  id uuid default gen_random_uuid() primary key,
-  boat text not null,
-  date text not null,
-  secs numeric not null,
-  flow numeric not null,
-  dir text not null,
-  created_at timestamptz default now()
-);
-
-create table calibration (
-  id uuid default gen_random_uuid() primary key,
-  boat text not null unique,
-  cal_a_flow numeric, cal_a_date text,
-  cal_a_down_min numeric, cal_a_down_sec numeric,
-  cal_a_up_min numeric, cal_a_up_sec numeric,
-  cal_b_flow numeric, cal_b_date text,
-  cal_b_down_min numeric, cal_b_down_sec numeric,
-  cal_b_up_min numeric, cal_b_up_sec numeric,
-  updated_at timestamptz default now()
-);
-
-alter table history enable row level security;
-alter table calibration enable row level security;
-create policy "allow all" on history for all using (true) with check (true);
-create policy "allow all" on calibration for all using (true) with check (true);
 ```
 
 ### 2. Hosting (GitHub Pages)
 
 This is a single self-contained HTML file with no build step or dependencies.
-
-1. Push `rowing_split_calculator.html` to your repo (rename to `index.html` if you want it to load at the root URL)
-2. Go to **Settings → Pages**, set the branch to `main`, and save
-3. Your app will be live at `https://yourusername.github.io/your-repo-name`
 
 ---
 
@@ -102,20 +69,6 @@ The app solves the model as soon as all 6 values are filled in and saves automat
 ### Logging splits
 
 Use the **+ Add entry** tab in the history panel to log individual splits with date, flow, direction, and split time. These inform the fallback model and build a historical record.
-
----
-
-## Editing the file
-
-The app is a single HTML file. Open it in any text editor to modify:
-
-| What to change | Where in the file |
-|---|---|
-| Colors / branding | `:root {}` CSS block near the top |
-| Boat classes | `.boat-btn` buttons in the HTML + `history`/`calibration` objects in JS |
-| Heuristic adjustment rate | `ADJ = 2.0` in the `compute()` function |
-| Reference flow for heuristic | `REF = 2500` in the `compute()` function |
-| Supabase credentials | `SUPA_URL` and `SUPA_KEY` constants at the top of the script |
 
 ---
 
