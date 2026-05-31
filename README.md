@@ -1,6 +1,6 @@
 # SplitCalc — Rowing Goal Split Calculator
 
-A lightweight coaching tool for calculating goal splits based on river flow rate, direction, and boat history. Built for Notre Dame Rowing.
+A coxswain/coaching tool for calculating goal splits based on river flow rate, direction, and boat history. Initially built for Notre Dame Men's Rowing.
 
 ---
 
